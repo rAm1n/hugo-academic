@@ -338,26 +338,26 @@
 
   function canChangeTheme() {
     // If the theme changer component is present, then user is allowed to change the theme variation.
-    return $('.js-theme-selector').length;
+    return $('.js-dark-toggle').length;
   }
 
   function getThemeMode() {
     return parseInt(localStorage.getItem('dark_mode') || 2);
   }
 
-  function changeThemeModeClick(newMode) {
-    console.info('Request to set theme.');
+  function changeThemeModeClick() {
     if (!canChangeTheme()) {
-      console.info('Cannot set theme - admin disabled theme selector.');
       return;
     }
+    let $themeChanger = $('.js-dark-toggle i');
+    let currentThemeMode = getThemeMode();
     let isDarkTheme;
-    switch (newMode) {
+    switch (currentThemeMode) {
       case 0:
         localStorage.setItem('dark_mode', '1');
         isDarkTheme = 1;
         console.info('User changed theme variation to Dark.');
-        showActiveTheme(0);
+        $themeChanger.removeClass('fa-moon fa-sun').addClass('fa-palette');
         break;
       case 1:
         localStorage.setItem('dark_mode', '2');
@@ -371,39 +371,16 @@
           isDarkTheme = isSiteThemeDark;  // Use the site's default theme variation based on `light` in the theme file.
         }
         console.info('User changed theme variation to Auto.');
-        showActiveTheme(1);
+        $themeChanger.removeClass('fa-moon fa-palette').addClass('fa-sun');
         break;
       default:
         localStorage.setItem('dark_mode', '0');
         isDarkTheme = 0;
         console.info('User changed theme variation to Light.');
-        showActiveTheme(2);
+        $themeChanger.removeClass('fa-sun fa-palette').addClass('fa-moon');
         break;
     }
     renderThemeVariation(isDarkTheme);
-  }
-
-  function showActiveTheme(mode){
-    switch (mode) {
-      case 0:
-        // Dark.
-        $('.js-set-theme-light').removeClass('dropdown-item-active');
-        $('.js-set-theme-dark').addClass('dropdown-item-active');
-        $('.js-set-theme-auto').removeClass('dropdown-item-active');
-        break;
-      case 1:
-        // Auto.
-        $('.js-set-theme-light').removeClass('dropdown-item-active');
-        $('.js-set-theme-dark').removeClass('dropdown-item-active');
-        $('.js-set-theme-auto').addClass('dropdown-item-active');
-        break;
-      default:
-        // Light.
-        $('.js-set-theme-light').addClass('dropdown-item-active');
-        $('.js-set-theme-dark').removeClass('dropdown-item-active');
-        $('.js-set-theme-auto').removeClass('dropdown-item-active');
-        break;
-    }
   }
 
   function getThemeVariation() {
@@ -500,17 +477,18 @@
     // If theme changer component present, set its icon according to the theme mode (day, night, or auto).
     if (canChangeTheme) {
       let themeMode = getThemeMode();
+      let $themeChanger = $('.js-dark-toggle i');
       switch (themeMode) {
         case 0:
-          showActiveTheme(2);
+          $themeChanger.removeClass('fa-sun fa-palette').addClass('fa-moon');
           console.info('Initialize theme variation to Light.');
           break;
         case 1:
-          showActiveTheme(0);
+          $themeChanger.removeClass('fa-moon fa-sun').addClass('fa-palette');
           console.info('Initialize theme variation to Dark.');
           break;
         default:
-          showActiveTheme(1);
+          $themeChanger.removeClass('fa-moon fa-palette').addClass('fa-sun');
           console.info('Initialize theme variation to Auto.');
           break;
       }
@@ -590,17 +568,9 @@
     initThemeVariation();
 
     // Change theme mode.
-    $('.js-set-theme-light').click(function (e) {
+    $('.js-dark-toggle').click(function (e) {
       e.preventDefault();
-      changeThemeModeClick(2);
-    });
-    $('.js-set-theme-dark').click(function (e) {
-      e.preventDefault();
-      changeThemeModeClick(0);
-    });
-    $('.js-set-theme-auto').click(function (e) {
-      e.preventDefault();
-      changeThemeModeClick(1);
+      changeThemeModeClick();
     });
 
     // Live update of day/night mode on system preferences update (no refresh required).

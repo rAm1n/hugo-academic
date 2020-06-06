@@ -29,7 +29,6 @@ subtitle = ""
     tag = ""
     category = ""
     publication_type = ""
-    author = ""
   
 [design]
   # Toggle between the various page layout types.

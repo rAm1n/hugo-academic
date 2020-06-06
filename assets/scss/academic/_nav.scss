@@ -3,7 +3,7 @@
  **************************************************/
 
 .navbar {
-  height: 70px;
+  height: 60px;
   background: $sta-menu-primary;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.11);
   font-size: #{$sta-font-size-small}px;
@@ -59,15 +59,18 @@
     font-size: #{$sta-font-size-small}px;
   }
 
-  // Note: dedicated `dropdown-item-active` class to prevent ScrollSpy removing `active` class from language chooser.
+  // Note: dedicated `i18n-active` class to prevent ScrollSpy removing `active` class from language chooser.
   .dropdown-item.active,
-  .dropdown-item-active {
+  .i18n-active {
     font-weight: bold;
     color: $sta-menu-text-active !important;
   }
 
 }
 
+.navbar a {
+  color:white
+}
 .dark .navbar {
   box-shadow: 0 0.125rem 0.25rem 0 rgba(255, 255, 255, .11);
 }
@@ -86,19 +89,15 @@
 
 @include media-breakpoint-down(md) {  /* Match breakpoint for i18n dropdown in navbar.html. */
   .i18n-dropdown .nav-link::after {
-    // Remove dropdown arrow on small devices (when language name isn't displayed).
     content: none;
   }
-}
-
-// Prevent language and theme selectors rendering off page.
-.i18n-dropdown .dropdown-menu,
-.theme-dropdown .dropdown-menu {
-  /* Use style from uncollapsable dropdowns to prevent dropdown going off page. */
-  position: absolute;
-  /* Below style from .dropdown-menu-right to prevent dropdown going off page. */
-  right: 0;
-  left: auto;
+  .i18n-dropdown .dropdown-menu {
+    /* Use style from uncollapsable dropdowns to prevent dropdown going off page. */
+    position: absolute;
+    /* Below style from .dropdown-menu-right to prevent dropdown going off page. */
+    right: 0;
+    left: auto;
+  }
 }
 
 // Allow user to horizontally scroll.
@@ -134,6 +133,7 @@
 
 #navbar-main .main-menu-item ul li .nav-link {
   color: $sta-menu-text;
+  color: white;
 }
 
 @include media-breakpoint-down(md) {

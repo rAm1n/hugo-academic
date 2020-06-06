@@ -310,6 +310,7 @@ ul.network-icon {
   list-style: none;
   padding: 0;
   margin: 0;
+  color: #a32727;
 }
 
 #profile .network-icon {
@@ -318,6 +319,7 @@ ul.network-icon {
 
 .network-icon li {
   margin-right: 10px;
+  color: #a32727;
 }
 
 .network-icon li:last-of-type {
@@ -327,6 +329,11 @@ ul.network-icon {
 .network-icon li:hover {
   transform: scale(1.2)
 }
+
+.network-icon li a i{
+  color: #a32727;
+}
+
 
 .big-icon {
   font-size: 2rem;
